@@ -20,4 +20,4 @@ body{background-color: #2a2f37;touch-action: pan-y;color: #666666;display: flex;
 .clocksvg .circle .dot::before{content:"";position: absolute;top: -2px;width: 10px;height: 10px;background: var(--clr);border-radius: 100%; box-shadow:0px 0px 30pxvar(--clr) , 0px 0px 6px var(--clr);}
 .clocksvg .ap{position: absolute;left: 44px;top: 15px;font-size: 9px;transform: translateX(-53%);}
 
-.test{position: absolute;top: 0;left: 0;font-size: 12px;color: #c3c3c3;}
+.test{position: absolute;top: 0;left: 0;font-size: 12px;color: #898989;}

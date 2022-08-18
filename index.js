@@ -43,9 +43,8 @@ const clock = {
             .then( res => res.ok ? res.json() : null )
             .then( data => {
                 myCity = data[0].local_names.en;
-                test.innerHTML = data[0].local_names.en;
+                test.innerHTML = data[0].local_names.en+ " - " + test.innerHTML ;
                 console.log( data , data[0].local_names.en);
-
 
                 fetch('//api.openweathermap.org/data/2.5/weather?q='+myCity+'&appid=65580fe0755188a571a8abece81b2ad2&units=metric')
                 .then( res => res.ok ? res.json() : null )
@@ -57,8 +56,6 @@ const clock = {
                     console.log( data, icon , temp ,data.main.temp );
                     tit.innerHTML = '<i class="' + icons[icon] +'"></i> <b>' + city + ' '+ temp + '</b>';
                 });
-
-
 
             });
         }
