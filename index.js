@@ -1,17 +1,17 @@
+let hour = document.getElementById("hour");
+let mins = document.getElementById("mins");
+let secs = document.getElementById("secs");
+let ampm = document.getElementById("ampm");
+
+let hh = document.getElementById("hh");
+let mm = document.getElementById("mm");
+let ss = document.getElementById("ss");
+
+let dothh = document.querySelector(".dot.hh");
+let dotmm = document.querySelector(".dot.mm");
+let dotss = document.querySelector(".dot.ss");
+
 setInterval(() => {
-    let hours = document.getElementById("hours");
-    let minutes = document.getElementById("minutes");
-    let seconds = document.getElementById("seconds");
-    let ampm = document.getElementById("ampm");
-    
-    let hh = document.getElementById("hh");
-    let mm = document.getElementById("mm");
-    let ss = document.getElementById("ss");
-
-    let dothh = document.querySelector(".dot.hh");
-    let dotmm = document.querySelector(".dot.mm");
-    let dotss = document.querySelector(".dot.ss");
-
     let h = new Date().getHours();
     let m = new Date().getMinutes();
     let s = new Date().getSeconds();
@@ -22,9 +22,9 @@ setInterval(() => {
     m = (m < 10) ? "0" + m : m;
     s = (s < 10) ? "0" + s : s;
     
-    hours.innerHTML = h + "<i>Hours</i>";
-    minutes.innerHTML = m + "<i>Minutes</i>";
-    seconds.innerHTML = s + "<i>Seconds</i>";
+    hour.innerHTML = h + "<i>Hours</i>";
+    mins.innerHTML = m + "<i>Minutes</i>";
+    secs.innerHTML = s + "<i>Seconds</i>";
     ampm.innerHTML = am;
 
     hh.style.strokeDashoffset = 220 - (220 * h) / 12;
