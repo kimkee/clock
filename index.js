@@ -20,13 +20,27 @@ const clock = {
             '50' : 'fas fa-smog'
         };
         const tit = document.querySelector(".tit");
+        let myLat = "35.6895";
+        let myLon = "139.6917";
+        navigator.geolocation.getCurrentPosition((position)=>{
+            test.innerHTML = "현재 사용자는 위도 " + position.coords.latitude + ", 경도 " + position.coords.longitude + "에 위치하고 있습니다.";
+            console.log("현재 사용자는 위도 " + position.coords.latitude + ", 경도 " + position.coords.longitude + "에 위치하고 있습니다.");
+            myLat = position.coords.latitude;
+            myLon = position.coords.longitude;
 
-        fetch('https://api.openweathermap.org/geo/1.0/reverse?lat=35.6895&lon=139.6917&appid=65580fe0755188a571a8abece81b2ad2')
-        .then( res => res.ok ? res.json() : null )
-        .then( data => {
-            
-            console.log( data , data[0].local_names.en);
+            fetch('https://api.openweathermap.org/geo/1.0/reverse?lat='+myLat+'&lon='+myLon+'&appid=65580fe0755188a571a8abece81b2ad2')
+            .then( res => res.ok ? res.json() : null )
+            .then( data => {
+                test.innerHTML = data[0].local_names.en;
+                console.log( data , data[0].local_names.en);
+            });
+
+        },(err)=>{
+            console.log(err);
+            test.innerHTML = err.message;
         });
+
+
 
 
         fetch('//api.openweathermap.org/data/2.5/weather?q=seoul&appid=65580fe0755188a571a8abece81b2ad2&units=metric')
@@ -45,13 +59,7 @@ const clock = {
 
         const test = document.querySelector(".test");
 
-        navigator.geolocation.getCurrentPosition((position)=>{
-            test.innerHTML = "현재 사용자는 위도 " + position.coords.latitude + ", 경도 " + position.coords.longitude + "에 위치하고 있습니다.";
-            console.log("현재 사용자는 위도 " + position.coords.latitude + ", 경도 " + position.coords.longitude + "에 위치하고 있습니다.");
-        },(err)=>{
-            console.log(err);
-            test.innerHTML = err.message;
-        });
+
 
 
 
