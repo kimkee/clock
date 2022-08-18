@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Digital Clock</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<div class="clocksvg">
+    <h1 class="tit">Digital Clock</h1>
+    <div id="time">
+        <div class="circle" style="--clr:#ff2972;">
+            <i class="dot hh"></i>
+            <svg>
+                <circle cx="35" cy="35" r="35"></circle>
+                <circle cx="35" cy="35" r="35" id="hh"></circle>
+            </svg>
+            <div class="num" id="hours">00</div>
+        </div>
+        <div class="circle" style="--clr:#fee800;">
+            <i class="dot mm"></i>
+            <svg>
+                <circle cx="35" cy="35" r="35"></circle>
+                <circle cx="35" cy="35" r="35" id="mm"></circle>
+            </svg>
+            <div class="num" id="minutes">00</div>
+        </div>
+        <div class="circle" style="--clr:#04fc43;">
+            <i class="dot ss"></i>
+            <svg>
+                <circle cx="35" cy="35" r="35"></circle>
+                <circle cx="35" cy="35" r="35" id="ss"></circle>
+            </svg>
+            <div class="num" id="seconds">00</div>
+        </div>
+        
+        <div class="ap">
+            <div class="num" id="ampm">AM</div>
+        </div>
+
+    </div>
+</div>
+
+<script src="./index.js"></script>
+
+</body>
+</html>
