@@ -4,7 +4,35 @@ const clock = {
     },
     evt: function(){
         this.draw();
+        this.weather();
         setInterval( e => this.draw(), 1000);
+    },
+    weather:function(){ /* 날씨(아이콘,온도) */
+        const icons = {
+            '01' : 'fas fa-sun',
+            '02' : 'fas fa-cloud-sun',
+            '03' : 'fas fa-cloud',
+            '04' : 'fas fa-cloud-meatball',
+            '09' : 'fas fa-cloud-sun-rain',
+            '10' : 'fas fa-cloud-showers-heavy',
+            '11' : 'fas fa-poo-storm',
+            '13' : 'far fa-snowflake',
+            '50' : 'fas fa-smog'
+        };
+        const tit = document.querySelector(".tit");
+        fetch('https://api.openweathermap.org/data/2.5/weather?q=seoul&appid=65580fe0755188a571a8abece81b2ad2&units=metric')
+        .then( res => {
+            if( res.ok ) { 
+                return res.json();
+            }
+        })
+        .then( data => {
+            const city = data.name;
+            const temp = (data.main.temp).toFixed(0) +' ºC';
+            const icon = (data.weather[0].icon).substr(0,2);
+            console.log( data, icon , temp );
+            tit.innerHTML = '<i class="' + icons[icon] +'"></i> ' + city + ' '+ temp + '';
+        });
     },
     draw: function(){
         const hour = document.getElementById("hour");
@@ -46,6 +74,8 @@ const clock = {
         mins.innerHTML = "<b>"+dgt(m)+"</b>" + "<i>Minutes</i>";
         secs.innerHTML = "<b>"+dgt(s)+"</b>" + "<i>Seconds</i>";
         ampm.innerHTML = am;
+
+        
 
         const round = hh.getTotalLength(); /* 둘레길이 */
 

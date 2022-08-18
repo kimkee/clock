@@ -3,7 +3,8 @@
 html{ height: 100%; }   
 body{background-color: #2a2f37;touch-action: pan-y;color: #666666;display: flex;align-items: center;height: 100%;}
 .clocksvg{margin: auto auto;padding: 15px 17px;display: flex;flex-direction: column;justify-content:center;align-items: center;border-radius: 150px;background: black;border: #646464 solid 3px;}
-.clocksvg .tit{font-size: 21px;font-weight: 700;margin: 0px 0 13px 0;position: relative;color: #ababab;}
+.clocksvg .tit{font-size: 21px;font-weight: 700;margin: 0px 0 13px 0;position: relative;color: #a6d9da;min-height: 28px;}
+.clocksvg .tit i{color: #ffffff;}
 .clocksvg .date{font-size: 24px;font-weight: 700;margin: 6px 0 5px 0;position: relative;color: #d5d5d5; display: flex; align-items: center;}
 .clocksvg .date b{font-size: 20px;font-weight: 700; font-style: normal;}
 .clocksvg .date i{font-size: 16px;font-weight: 700; font-style: normal; margin-left: 4px;}
