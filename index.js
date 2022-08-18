@@ -28,7 +28,7 @@ const clock = {
         })
         .then( data => {
             const city = data.name;
-            const temp = (data.main.temp).toFixed(0) +' ºC';
+            const temp = (data.main.temp).toFixed(1) +' ºC';
             const icon = (data.weather[0].icon).substr(0,2);
             console.log( data, icon , temp );
             tit.innerHTML = '<i class="' + icons[icon] +'"></i> ' + city + ' '+ temp + '';
