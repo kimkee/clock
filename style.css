@@ -3,9 +3,10 @@
 html{ height: 100%; }   
 body{background-color: #2a2f37;touch-action: pan-y;color: #666666;display: flex;align-items: center;height: 100%;}
 .clocksvg{margin: auto auto;padding: 15px 17px;display: flex;flex-direction: column;justify-content:center;align-items: center;border-radius: 150px;background: black;border: #646464 solid 3px;}
-.clocksvg .tit{font-size: 21px;font-weight: 700;margin: 0px 0 13px 0;position: relative;color: #a6d9da;min-height: 28px;}
-.clocksvg .tit i{color: #ffffff;}
-.clocksvg .date{font-size: 24px;font-weight: 700;margin: 6px 0 5px 0;position: relative;color: #d5d5d5; display: flex; align-items: center;}
+.clocksvg .tit{font-weight: 700;margin: 0px 0 13px 0;position: relative;color: #a6d9da;min-height: 32px;display: flex;align-items: center;}
+.clocksvg .tit i{color: #ffffff;font-size: 30px;margin-right: 4px;}
+.clocksvg .tit b{font-size: 20px;}
+.clocksvg .date{font-size: 24px;font-weight: 700;margin: 7px 0 7px 0;position: relative;color: #d5d5d5;display: flex;align-items: center;}
 .clocksvg .date b{font-size: 20px;font-weight: 700; font-style: normal;}
 .clocksvg .date i{font-size: 16px;font-weight: 700; font-style: normal; margin-left: 4px;}
 .clocksvg .time{display: flex;justify-content: space-between;color: #ddd;gap: 6px;position: relative;}
@@ -18,3 +19,5 @@ body{background-color: #2a2f37;touch-action: pan-y;color: #666666;display: flex;
 .clocksvg .circle .dot{position: absolute;width: 100%;height: 100%;text-align: center;display: flex;justify-content: center;z-index: 1;}
 .clocksvg .circle .dot::before{content:"";position: absolute;top: -2px;width: 10px;height: 10px;background: var(--clr);border-radius: 100%; box-shadow:0px 0px 30pxvar(--clr) , 0px 0px 6px var(--clr);}
 .clocksvg .ap{position: absolute;left: 44px;top: 15px;font-size: 9px;transform: translateX(-53%);}
+
+.test{position: absolute;top: 0;left: 0;font-size: 12px;color: #c3c3c3;}

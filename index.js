@@ -20,19 +20,41 @@ const clock = {
             '50' : 'fas fa-smog'
         };
         const tit = document.querySelector(".tit");
-        fetch('https://api.openweathermap.org/data/2.5/weather?q=seoul&appid=65580fe0755188a571a8abece81b2ad2&units=metric')
-        .then( res => {
-            if( res.ok ) { 
-                return res.json();
-            }
-        })
+
+        fetch('https://api.openweathermap.org/geo/1.0/reverse?lat=35.6895&lon=139.6917&appid=65580fe0755188a571a8abece81b2ad2')
+        .then( res => res.ok ? res.json() : null )
+        .then( data => {
+            
+            console.log( data , data[0].local_names.en);
+        });
+
+
+        fetch('//api.openweathermap.org/data/2.5/weather?q=seoul&appid=65580fe0755188a571a8abece81b2ad2&units=metric')
+        .then( res => res.ok ? res.json() : null )
         .then( data => {
             const city = data.name;
-            const temp = (data.main.temp).toFixed(1) +' ºC';
+            // const temp = (data.main.temp).toFixed(1) +' ºC';
+            const temp = (Math.floor(data.main.temp * 10) / 10).toFixed(1) +'ºC';
             const icon = (data.weather[0].icon).substr(0,2);
-            console.log( data, icon , temp );
-            tit.innerHTML = '<i class="' + icons[icon] +'"></i> ' + city + ' '+ temp + '';
+            console.log( data, icon , temp ,data.main.temp );
+            tit.innerHTML = '<i class="' + icons[icon] +'"></i> <b>' + city + ' '+ temp + '</b>';
+        }).then( (lat,lon) => {
+
+            
         });
+
+        const test = document.querySelector(".test");
+
+        navigator.geolocation.getCurrentPosition((position)=>{
+            test.innerHTML = "현재 사용자는 위도 " + position.coords.latitude + ", 경도 " + position.coords.longitude + "에 위치하고 있습니다.";
+            console.log("현재 사용자는 위도 " + position.coords.latitude + ", 경도 " + position.coords.longitude + "에 위치하고 있습니다.");
+        },(err)=>{
+            console.log(err);
+            test.innerHTML = err.message;
+        });
+
+
+
     },
     draw: function(){
         const hour = document.getElementById("hour");
