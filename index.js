@@ -7,8 +7,20 @@ const clock = {
         this.weather();
         this.draw(this.tgap);
         setInterval( e => this.draw(this.tgap), 1000);
+
+        const xyr = 36;
+        document.querySelectorAll(".circle circle").forEach(
+            circ => {
+                circ.setAttribute("cx", xyr);
+                circ.setAttribute("cy", xyr);
+                circ.setAttribute("r",  xyr);
+                circ.closest(".circle").style.height = xyr*2+"rem";
+                circ.closest(".circle").style.width = xyr*2+"rem";
+                circ.style.strokeDasharray = circ.getTotalLength();
+            }
+        );
     },
-    weather:function(){ /* 날씨(아이콘,온도) */
+    weather: function(){ /* 날씨(아이콘,온도) */
         const _this = this;
         const icons = {
             '01' : 'fas fa-sun',
@@ -51,7 +63,7 @@ const clock = {
         };
 
         const setCity = (myCity,gap) => {  /* 도시이름으로 날씨,온도,아이콘 가져오기 */
-            fetch('https://api.openweathermap.org/data/2.5/weather?q='+myCity+'&appid='+appid+'&units=metric')
+            fetch('//api.openweathermap.org/data/2.5/weather?q='+myCity+'&appid='+appid+'&units=metric')
             .then( rest => rest.ok ? rest.json() : null )
             .then( data => {
                 test.innerHTML = myCity + " - " + test.innerHTML ;
@@ -65,8 +77,8 @@ const clock = {
             });
         };
 
-        const btns = document.querySelectorAll(".btn:not(.my)");
-        btns.forEach( bt => bt.addEventListener("click", e => setCity(bt.value, bt.getAttribute("data-tm") )));
+        const bts = document.querySelectorAll(".btn:not(.my)");
+        bts.forEach( bt => bt.addEventListener("click", e => setCity(bt.value, bt.getAttribute("data-tm") )));
 
     },
     tgap:0,
@@ -88,14 +100,13 @@ const clock = {
             mm: document.querySelector(".circle.mm .dot"),
             ss: document.querySelector(".circle.ss .dot"),
         };
-        const weeks = { /* 요일 */
-            "ch": ["日","月","火","水","木","金","土"],
-            "en": ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
-            "ko": ["월","화","수","목","금","토","일"]
+        const week = { /* 요일 */
+            ch: ["日","月","火","水","木","金","土"],
+            en: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+            ko: ["월","화","수","목","금","토","일"]
         };
 
         const dgt = n => n < 10 ? "0" + n : n; /* "01","02" 두자리 수로 만들기 */
-        
 
         const dorg = new Date();
         const date = new Date(Date.parse(dorg) + (1000*60*60* tgap));
@@ -112,7 +123,7 @@ const clock = {
         // console.log(tday);
 
         /* 렌더 */
-        time.yymd.innerHTML = "<b>"+tday.yy +"."+ dgt(tday.mo) +"."+ dgt(tday.dy) +"</b> <i>("+ weeks.ko[tday.wk] +")</i>";
+        time.yymd.innerHTML = "<b>"+tday.yy +"."+ dgt(tday.mo) +"."+ dgt(tday.dy) +"</b> <i>("+ week.ch[tday.wk] +")</i>";
         time.hour.innerHTML = "<b>"+dgt(tday.hh)+"</b>";
         time.mins.innerHTML = "<b>"+dgt(tday.mm)+"</b>";
         time.secs.innerHTML = "<b>"+dgt(tday.ss)+"</b>";
@@ -130,26 +141,26 @@ const clock = {
         
         setTimeout(() => document.querySelector(".time").classList.add("load"));
     },
-    area: function(){
+    area: function(){ /* 도시 선택 */
         const area = {
-            "Seoul":    { name: "Seoul",     gap: 0 },
-            "Jeju":     { name: "Jeju",      gap: 0 },
-            "Bangkok":  { name: "Bangkok",   gap: -2 },
-            "Paris":    { name: "Paris",     gap: -7 },
-            "Hawaii":   { name: "Hawaii",    gap: -19 },
-            "Maldives": { name: "Maldives",  gap: -3.5 },
-            "Sydney":   { name: "Sydney",    gap: +1 },
-            "Moskva":   { name: "Moskva",    gap: -6 },
-            "Seattle":  { name: "Seattle",   gap: -16 },
+            seoul:    { name: "Seoul",     gap: 0    },
+            jeju:     { name: "Jeju",      gap: 0    },
+            bangkok:  { name: "Bangkok",   gap: -2   },
+            paris:    { name: "Paris",     gap: -7   },
+            hawaii:   { name: "Hawaii",    gap: -19  },
+            maldives: { name: "Maldives",  gap: -3.5 },
+            sydney:   { name: "Sydney",    gap: +1   },
+            moskva:   { name: "Moskva",    gap: -6   },
+            seattle:  { name: "Seattle",   gap: -16  },
         };
         const selt = document.querySelector(".selt");
-        let btns = "";
+        let bts = "";
         console.table(area);
         for(const key in area ){
             const bt = '<button class="btn" value="'+area[key].name+'" data-tm="'+area[key].gap+'">'+area[key].name+'</button>';
-            btns +=  bt;
+            bts +=  bt;
         }
-        selt.innerHTML = btns;
+        selt.innerHTML = bts;
     }
 };
 
