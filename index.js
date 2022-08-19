@@ -3,11 +3,12 @@ const clock = {
         this.evt();
     },
     evt: function(){
-        this.draw();
+        this.draw(this.tgap);
         this.weather();
-        setInterval( e => this.draw(), 1000);
+        setInterval( e => this.draw(this.tgap), 1000);
     },
     weather:function(){ /* 날씨(아이콘,온도) */
+        const _this = this;
         const icons = {
             '01' : 'fas fa-sun',
             '02' : 'fas fa-cloud-sun',
@@ -32,7 +33,7 @@ const clock = {
             // let myLat = "35.6895";
             // let myLon = "139.6917";
             let myCity = "seoul";
-            setCity(myCity);
+            setCity(myCity,0);
             test.innerHTML = err.message;
         });
 
@@ -43,12 +44,12 @@ const clock = {
             .then( rest => rest.ok ? rest.json() : null )
             .then( data => {
                 let myCity = data[0].local_names.en;
-                setCity(myCity);
+                setCity(myCity,0);
                 console.log( data , myCity);
             });
         };
 
-        const setCity = (myCity) => {  /* 도시이름으로 날씨,온도,아이콘 가져오기 */
+        const setCity = (myCity,gap) => {  /* 도시이름으로 날씨,온도,아이콘 가져오기 */
             fetch('https://api.openweathermap.org/data/2.5/weather?q='+myCity+'&appid='+appid+'&units=metric')
             .then( rest => rest.ok ? rest.json() : null )
             .then( data => {
@@ -57,14 +58,17 @@ const clock = {
                 const temp = (Math.floor(data.main.temp * 10) / 10).toFixed(1) +'ºC'; /* 소수점 첫째자리만 */
                 const icon = (data.weather[0].icon).substr(0,2);
                 tits.innerHTML = '<i class="' + icons[icon] +'"></i> <b>' + city + ' '+ temp + '</b>';
-                console.log( data, icon , temp , city );
+                console.log( data, icon , temp , city ,Number(gap));
+                clock.tgap = Number(gap);
+                _this.draw( clock.tgap );
             });
         };
 
-        document.querySelectorAll(".btn:not(.my)").forEach( bt => bt.addEventListener("click", e => setCity(bt.value)));
+        document.querySelectorAll(".btn:not(.my)").forEach( bt => bt.addEventListener("click", e => setCity(bt.value,bt.getAttribute("data-tm") )));
 
     },
-    draw: function(){ /* 시계 렌더링 */
+    tgap:0,
+    draw: function(tgap){ /* 시계 렌더링 */
         const time = { /* 시,분,초 */
             yymd: document.querySelector(".date"),
             hour: document.querySelector(".circle.hh .nm"),
@@ -89,8 +93,10 @@ const clock = {
         };
 
         const dgt = n => n < 10 ? "0" + n : n; /* "01","02" 두자리 수로 만들기 */
+        
 
-        const date = new Date();
+        const dorg = new Date();
+        const date = new Date(Date.parse(dorg) + (1000*60*60* tgap));
         const tday = {
             yy: date.getFullYear(),
             mo: date.getMonth()+1,
@@ -119,6 +125,35 @@ const clock = {
         dots.hh.style.transform = 'rotate('+ tday.hh * 360 / 12 +'deg)';
         dots.mm.style.transform = 'rotate('+ tday.mm * 360 / 60 +'deg)';
         dots.ss.style.transform = 'rotate('+ tday.ss * 360 / 60 +'deg)';
+    },
+    area: function(){
+        
+        // anotherCityTime('서울',0,'seoul'); //나라별 설정 '텍스트','기준시간GMT','ID 비교값'
+        // anotherCityTime('도쿄',0,'tokyo');
+        // anotherCityTime('방콕',-2,'bangkok');
+        // anotherCityTime('싱가폴',-1,'singapore');
+        // anotherCityTime('모스크바',-5,'moskba'); 
+        // anotherCityTime('파리',-7,'pari'); 
+        // anotherCityTime('런던',-9,'london');
+        // anotherCityTime('시드니',1,'sydney');
+        // anotherCityTime('몰디브',-3.5,'maldives');
+        // anotherCityTime('칸쿤',-14,'kankun');
+        // anotherCityTime('뉴욕',-13,'newyork');
+        // anotherCityTime('밴쿠버',-16,'vancouver');
+        // anotherCityTime('하와이',-19,'hawai');
+
+        const area = {
+            "Seoul":    { name: "Seoul",     gap: 0 },
+            "Jeju":     { name: "Jeju",      gap: 0 },
+            "Tokyo":    { name: "Tokyo",     gap: 0 },
+            "Bangkok":  { name: "Bangkok",   gap: -2 },
+            "Hawaii":   { name: "Hawaii",    gap: -19 },
+            "London":   { name: "London",    gap: -8 },
+            "Maldives": { name: "Maldives",  gap: -3.5 },
+            "Paris":    { name: "Paris",     gap: -7 },
+            "Sydney":   { name: "Sydney",    gap: 1 },
+            "Moskva":   { name: "Moskva",    gap: -6 },
+        };
     }
 };
 
