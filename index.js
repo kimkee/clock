@@ -49,7 +49,7 @@ const clock = {
         };
 
         const setCity = (myCity) => {  /* 도시이름으로 날씨,온도,아이콘 가져오기 */
-            fetch('//api.openweathermap.org/data/2.5/weather?q='+myCity+'&appid='+appid+'&units=metric')
+            fetch('https://api.openweathermap.org/data/2.5/weather?q='+myCity+'&appid='+appid+'&units=metric')
             .then( rest => rest.ok ? rest.json() : null )
             .then( data => {
                 test.innerHTML = myCity + " - " + test.innerHTML ;
@@ -61,58 +61,64 @@ const clock = {
             });
         };
 
+        document.querySelectorAll(".btn:not(.my)").forEach( bt => bt.addEventListener("click", e => setCity(bt.value)));
+
     },
     draw: function(){ /* 시계 렌더링 */
-        const hour = document.getElementById("hour");
-        const mins = document.getElementById("mins");
-        const secs = document.getElementById("secs");
-        const ampm = document.getElementById("ampm");
-
-        const yymd = document.querySelector(".date");
-        const hh = document.getElementById("hh");
-        const mm = document.getElementById("mm");
-        const ss = document.getElementById("ss");
-
-        const dothh = document.querySelector(".dot.hh");
-        const dotmm = document.querySelector(".dot.mm");
-        const dotss = document.querySelector(".dot.ss");
-        const weeks = {
+        const time = { /* 시,분,초 */
+            yymd: document.querySelector(".date"),
+            hour: document.querySelector(".circle.hh .nm"),
+            mins: document.querySelector(".circle.mm .nm"),
+            secs: document.querySelector(".circle.ss .nm"),
+            ampm: document.querySelector(".circle.hh .ap"),
+        };
+        const circ = { /* 원 */
+            hh: document.querySelector(".circle.hh .cr"),
+            mm: document.querySelector(".circle.mm .cr"),
+            ss: document.querySelector(".circle.ss .cr"),
+        };
+        const dots = { /* 점  */
+            hh: document.querySelector(".circle.hh .dot"),
+            mm: document.querySelector(".circle.mm .dot"),
+            ss: document.querySelector(".circle.ss .dot"),
+        };
+        const weeks = { /* 요일 */
             "ch": ["日","月","火","水","木","金","土"],
             "en": ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
             "ko": ["월","화","수","목","금","토","일"]
         };
 
-        const dgt = n => n < 10 ? "0" + n : n; /* "01","02" 만들기 */
+        const dgt = n => n < 10 ? "0" + n : n; /* "01","02" 두자리 수로 만들기 */
 
         const date = new Date();
-        const yy = date.getFullYear();
-        const mo = date.getMonth()+1;
-        const wk = date.getDay();
-        const dy = date.getDate();
+        const tday = {
+            yy: date.getFullYear(),
+            mo: date.getMonth()+1,
+            dy: date.getDate(),
+            wk: date.getDay(),
+            hh: date.getHours() > 12 ? date.getHours() - 12 : date.getHours(),
+            mm: date.getMinutes(),
+            ss: date.getSeconds(),
+            am: date.getHours() >= 12 ? "PM" : "AM",
+        };
+        // console.log(tday);
 
-        let h = date.getHours();
-        let m = date.getMinutes();
-        let s = date.getSeconds();
-        let am = h >= 12 ? "PM" : "AM";
-        h > 12 ? h = h - 12 : null;
-        
-        yymd.innerHTML = "<b>"+yy +"."+ dgt(mo) +"."+ dgt(dy) +"</b> <i>("+ weeks.ko[wk] +")</i>";
-        hour.innerHTML = "<b>"+dgt(h)+"</b>" + "<i>Hours</i>";
-        mins.innerHTML = "<b>"+dgt(m)+"</b>" + "<i>Minutes</i>";
-        secs.innerHTML = "<b>"+dgt(s)+"</b>" + "<i>Seconds</i>";
-        ampm.innerHTML = am;
+        /* 렌더 */
+        time.yymd.innerHTML = "<b>"+tday.yy +"."+ dgt(tday.mo) +"."+ dgt(tday.dy) +"</b> <i>("+ weeks.ko[tday.wk] +")</i>";
+        time.hour.innerHTML = "<b>"+dgt(tday.hh)+"</b>";
+        time.mins.innerHTML = "<b>"+dgt(tday.mm)+"</b>";
+        time.secs.innerHTML = "<b>"+dgt(tday.ss)+"</b>";
+        time.ampm.innerHTML = tday.am;
 
-        
+        const round = circ.hh.getTotalLength(); /* 둘레길이 */
 
-        const round = hh.getTotalLength(); /* 둘레길이 */
+        circ.hh.style.strokeDashoffset = round - (round * tday.hh) / 12;
+        circ.mm.style.strokeDashoffset = round - (round * tday.mm) / 60;
+        circ.ss.style.strokeDashoffset = round - (round * tday.ss) / 60;
 
-        hh.style.strokeDashoffset = round - (round * h) / 12;
-        mm.style.strokeDashoffset = round - (round * m) / 60;
-        ss.style.strokeDashoffset = round - (round * s) / 60;
-
-        dothh.style.transform = 'rotate('+ h * 360 / 12 +'deg)';
-        dotmm.style.transform = 'rotate('+ m * 360 / 60 +'deg)';
-        dotss.style.transform = 'rotate('+ s * 360 / 60 +'deg)';
+        dots.hh.style.transform = 'rotate('+ tday.hh * 360 / 12 +'deg)';
+        dots.mm.style.transform = 'rotate('+ tday.mm * 360 / 60 +'deg)';
+        dots.ss.style.transform = 'rotate('+ tday.ss * 360 / 60 +'deg)';
     }
 };
 
