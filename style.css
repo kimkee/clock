@@ -3,7 +3,7 @@
 html{height: 100%;font-size: 1px;}
 body{background-color: #2a2f37;touch-action: pan-y;color: #666666;display: flex;align-items: center;height: 100%;flex-direction: column;align-content: center;justify-content: center;}
 
-.clocksvg{margin: 0 auto;position: absolute;padding: 2rem 17rem 10rem 17rem;display: flex;flex-direction: column;justify-content:center;align-items: center;border-radius: 80rem;background: black;border: #2e2e2e solid 10rem;width: 300rem;height: 300rem;background-image: linear-gradient(45deg, #101010, #000000, #4e4e4e);box-shadow: inset #000 0rem 2rem 8rem;}
+.clocksvg{margin: 0 auto;position: absolute;padding: 10rem 17rem 10rem 17rem;display: flex;flex-direction: column;justify-content:center;align-items: center;border-radius: 80rem;background: black;border: #2e2e2e solid 10rem;width: 300rem;height: 300rem;background-image: linear-gradient(45deg, #101010, #000000, #4e4e4e);box-shadow: inset #000 0rem 2rem 8rem;}
 .clocksvg::before{content:"";border-radius: 83rem;background: linear-gradient(45deg, #1a1a1a, #5e5e5e); width: 304rem;height: 306rem;position: absolute;left: -12rem;top: -12rem;z-index: -1;box-shadow: 0rem 0rem 30rem #342929, 0rem 0rem 6rem #000000;}
 .clocksvg::after{content:"";position: fixed;left: 50%;transform: translateX(-50%);width: 170rem;bottom: -200px;top: -280px;display: block;background: #000;z-index: -2;border: #000000 solid 4px;background-image: linear-gradient(15deg, #000000, #222222);}
 .clocksvg .box{}
