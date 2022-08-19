@@ -103,7 +103,7 @@ const clock = {
         const week = { /* 요일 */
             ch: ["日","月","火","水","木","金","土"],
             en: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
-            ko: ["월","화","수","목","금","토","일"]
+            ko: ["일","월","화","수","목","금","토"]
         };
 
         const dgt = n => n < 10 ? "0" + n : n; /* "01","02" 두자리 수로 만들기 */
@@ -114,7 +114,7 @@ const clock = {
             yy: date.getFullYear(),
             mo: date.getMonth()+1,
             dy: date.getDate(),
-            wk: date.getDay()-1,
+            wk: date.getDay(),
             hh: date.getHours() > 12 ? date.getHours() - 12 : date.getHours(),
             mm: date.getMinutes(),
             ss: date.getSeconds(),
