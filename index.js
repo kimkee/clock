@@ -27,36 +27,39 @@ const clock = {
             myLat = position.coords.latitude;
             myLon = position.coords.longitude;
             
-            setpos(myLat,myLon);
+            setGeo(myLat,myLon);
         },(err)=>{
-            console.log(err);
-            let myLat = "35.6895";
-            let myLon = "139.6917";
+            console.log(err.message);
+            // let myLat = "35.6895";
+            // let myLon = "139.6917";
             // let myCity = "tokyo";
-            setpos(myLat,myLon);
+            // setGeo(myLat,myLon);
+            setCity("seoul");
             test.innerHTML = err.message;
         });
 
-
-        function setpos(myLat,myLon){
-            fetch('https://api.openweathermap.org/geo/1.0/reverse?lat='+myLat+'&lon='+myLon+'&appid=65580fe0755188a571a8abece81b2ad2')
+        function setGeo(myLat,myLon){
+            fetch('//api.openweathermap.org/geo/1.0/reverse?lat='+myLat+'&lon='+myLon+'&appid=65580fe0755188a571a8abece81b2ad2')
             .then( res => res.ok ? res.json() : null )
             .then( data => {
                 myCity = data[0].local_names.en;
-                test.innerHTML = data[0].local_names.en+ " - " + test.innerHTML ;
-                console.log( data , data[0].local_names.en);
+                
+                console.log( data , myCity);
+                setCity(myCity);
+            });
+        }
 
-                fetch('//api.openweathermap.org/data/2.5/weather?q='+myCity+'&appid=65580fe0755188a571a8abece81b2ad2&units=metric')
-                .then( res => res.ok ? res.json() : null )
-                .then( data => {
-                    const city = data.name || 'tokyo';
-                    // const temp = (data.main.temp).toFixed(1) +' ºC';
-                    const temp = (Math.floor(data.main.temp * 10) / 10).toFixed(1) +'ºC';
-                    const icon = (data.weather[0].icon).substr(0,2);
-                    console.log( data, icon , temp ,data.main.temp );
-                    tit.innerHTML = '<i class="' + icons[icon] +'"></i> <b>' + city + ' '+ temp + '</b>';
-                });
-
+        function setCity(myCity){
+            fetch('//api.openweathermap.org/data/2.5/weather?q='+myCity+'&appid=65580fe0755188a571a8abece81b2ad2&units=metric')
+            .then( res => res.ok ? res.json() : null )
+            .then( data => {
+                test.innerHTML = myCity + " - " + test.innerHTML ;
+                const city = data.name || 'tokyo';
+                // const temp = (data.main.temp).toFixed(1) +' ºC';
+                const temp = (Math.floor(data.main.temp * 10) / 10).toFixed(1) +'ºC';
+                const icon = (data.weather[0].icon).substr(0,2);
+                console.log( data, icon , temp , city );
+                tit.innerHTML = '<i class="' + icons[icon] +'"></i> <b>' + city + ' '+ temp + '</b>';
             });
         }
 

@@ -1,7 +1,10 @@
-# Clock SVG
+# Clock SVG & Weather API
 
 
-https://youtu.be/eoSfzVz9ur0
+### https://youtu.be/eoSfzVz9ur0
+### https://openweathermap.org/
+
+<br>
 
 
 ```js
@@ -16,5 +19,4 @@ dotmm.style.transform = 'rotate('+ m * 360 / 60 +'deg)';
 dotss.style.transform = 'rotate('+ s * 360 / 60 +'deg)';
 ```
 
-
-![](screenshot.png)
+<img src="./screenshot.png" width="320">
