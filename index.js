@@ -19,53 +19,50 @@ const clock = {
             '13' : 'far fa-snowflake',
             '50' : 'fas fa-smog'
         };
-        const tit = document.querySelector(".tit");
+        const tits = document.querySelector(".tit");
         const test = document.querySelector(".test");
-        navigator.geolocation.getCurrentPosition((position)=>{
-            test.innerHTML = "현재 사용자는 위도 " + position.coords.latitude + ", 경도 " + position.coords.longitude + "에 위치하고 있습니다.";
-            console.log("현재 사용자는 위도 " + position.coords.latitude + ", 경도 " + position.coords.longitude + "에 위치하고 있습니다.");
-            myLat = position.coords.latitude;
-            myLon = position.coords.longitude;
-            
-            setGeo(myLat,myLon);
+
+        navigator.geolocation.getCurrentPosition( posit => { /* 위도,경도 가져오기 */
+            let myLat = posit.coords.latitude;
+            let myLon = posit.coords.longitude;
+            test.innerHTML = "현재 사용자는 위도 " + myLat + ", 경도 " + myLon + "에 위치하고 있습니다.";
+            getCity(myLat,myLon);
         },(err)=>{
             console.log(err.message);
             // let myLat = "35.6895";
             // let myLon = "139.6917";
-            // let myCity = "tokyo";
-            // setGeo(myLat,myLon);
-            setCity("seoul");
+            let myCity = "seoul";
+            setCity(myCity);
             test.innerHTML = err.message;
         });
 
-        function setGeo(myLat,myLon){
-            fetch('//api.openweathermap.org/geo/1.0/reverse?lat='+myLat+'&lon='+myLon+'&appid=65580fe0755188a571a8abece81b2ad2')
-            .then( res => res.ok ? res.json() : null )
-            .then( data => {
-                myCity = data[0].local_names.en;
-                
-                console.log( data , myCity);
-                setCity(myCity);
-            });
-        }
+        const appid = "65580fe0755188a571a8abece81b2ad2"; /* api.openweathermap.org */
 
-        function setCity(myCity){
-            fetch('//api.openweathermap.org/data/2.5/weather?q='+myCity+'&appid=65580fe0755188a571a8abece81b2ad2&units=metric')
-            .then( res => res.ok ? res.json() : null )
+        const getCity = (myLat,myLon) => { /* 위도,경도로 도시이름 가져오기 */
+            fetch('//api.openweathermap.org/geo/1.0/reverse?lat='+myLat+'&lon='+myLon+'&appid='+appid+'')
+            .then( rest => rest.ok ? rest.json() : null )
+            .then( data => {
+                let myCity = data[0].local_names.en;
+                setCity(myCity);
+                console.log( data , myCity);
+            });
+        };
+
+        const setCity = (myCity) => {  /* 도시이름으로 날씨,온도,아이콘 가져오기 */
+            fetch('//api.openweathermap.org/data/2.5/weather?q='+myCity+'&appid='+appid+'&units=metric')
+            .then( rest => rest.ok ? rest.json() : null )
             .then( data => {
                 test.innerHTML = myCity + " - " + test.innerHTML ;
-                const city = data.name || 'tokyo';
-                // const temp = (data.main.temp).toFixed(1) +' ºC';
-                const temp = (Math.floor(data.main.temp * 10) / 10).toFixed(1) +'ºC';
+                const city = data.name;
+                const temp = (Math.floor(data.main.temp * 10) / 10).toFixed(1) +'ºC'; /* 소수점 첫째자리만 */
                 const icon = (data.weather[0].icon).substr(0,2);
+                tits.innerHTML = '<i class="' + icons[icon] +'"></i> <b>' + city + ' '+ temp + '</b>';
                 console.log( data, icon , temp , city );
-                tit.innerHTML = '<i class="' + icons[icon] +'"></i> <b>' + city + ' '+ temp + '</b>';
             });
-        }
-
+        };
 
     },
-    draw: function(){
+    draw: function(){ /* 시계 렌더링 */
         const hour = document.getElementById("hour");
         const mins = document.getElementById("mins");
         const secs = document.getElementById("secs");
@@ -85,14 +82,13 @@ const clock = {
             "ko": ["월","화","수","목","금","토","일"]
         };
 
-        const dgt = n => n < 10 ? "0" + n : n;
+        const dgt = n => n < 10 ? "0" + n : n; /* "01","02" 만들기 */
 
         const date = new Date();
         const yy = date.getFullYear();
         const mo = date.getMonth()+1;
         const wk = date.getDay();
         const dy = date.getDate();
-        
 
         let h = date.getHours();
         let m = date.getMinutes();

@@ -17,7 +17,7 @@ body{background-color: #2a2f37;touch-action: pan-y;color: #666666;display: flex;
 .clocksvg .circle svg circle{width: 100%;height: 100%;fill: #531356;fill: transparent;stroke: #5a5a5a;stroke-width: 3px;transform: translate(3px, 3px);position: absolute;}
 .clocksvg .circle svg circle:nth-child(2){stroke: var(--clr);stroke-dasharray: 250;}
 .clocksvg .circle .dot{position: absolute;width: 100%;height: 100%;text-align: center;display: flex;justify-content: center;z-index: 1;}
-.clocksvg .circle .dot::before{content:"";position: absolute;top: -2px;width: 10px;height: 10px;background: var(--clr);border-radius: 100%; box-shadow:0px 0px 30pxvar(--clr) , 0px 0px 6px var(--clr);}
+.clocksvg .circle .dot::before{content:"";position: absolute;top: -2px;width: 10px;height: 10px;background: var(--clr);border-radius: 100%; box-shadow:0px 0px 30px var(--clr) , 0px 0px 6px var(--clr);}
 .clocksvg .ap{position: absolute;left: 44px;top: 15px;font-size: 9px;transform: translateX(-53%);}
 
 .test{position: absolute;top: 0;left: 0;font-size: 12px;color: #898989;}
