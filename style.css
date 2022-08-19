@@ -13,7 +13,7 @@ body{background-color: #2a2f37;touch-action: pan-y;color: #666666;display: flex;
 .clocksvg .date{font-weight: 700;margin: 2rem 0 3rem 0;position: relative;color: #d5d5d5;display: flex;align-items: center;justify-content: center;background: linear-gradient(180deg,#ffffff 12.41%,#d1d1d1 52.55%,#959595 89.95%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;}
 .clocksvg .date b{font-size: 22rem;font-weight: 700; font-style: normal; line-height: 1;}
 .clocksvg .date i{font-size: 18rem;font-weight: 700; font-style: normal; line-height: 1; margin-left: 4rem;}
-.clocksvg .time{display: flex;justify-content: space-between;color: #ddd;gap: 6rem;position: relative;}
+.clocksvg .time{display: flex;justify-content: space-between;color: #ddd;gap: 12rem;position: relative;}
 .clocksvg .circle{position: relative;width: 72rem;height: 72rem;display: flex;justify-content: center;align-items: center;}
 .clocksvg .circle .nm{position: absolute;text-align: center;font-weight: 700;font-size:18rem;font-family: sans-serif;margin-top: 0rem;}
 .clocksvg .circle .nm i{display: block; font-size:10rem; font-style: normal; line-height: 1;}
