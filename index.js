@@ -66,7 +66,7 @@ const clock = {
         };
 
         const btns = document.querySelectorAll(".btn:not(.my)");
-        btns.forEach( bt => bt.addEventListener("click", e => setCity(bt.value,bt.getAttribute("data-tm") )));
+        btns.forEach( bt => bt.addEventListener("click", e => setCity(bt.value, bt.getAttribute("data-tm") )));
 
     },
     tgap:0,
@@ -127,6 +127,8 @@ const clock = {
         dots.hh.style.transform = 'rotate('+ tday.hh * 360 / 12 +'deg)';
         dots.mm.style.transform = 'rotate('+ tday.mm * 360 / 60 +'deg)';
         dots.ss.style.transform = 'rotate('+ tday.ss * 360 / 60 +'deg)';
+        
+        setTimeout(() => document.querySelector(".time").classList.add("load"));
     },
     area: function(){
         const area = {
