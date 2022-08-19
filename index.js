@@ -3,8 +3,9 @@ const clock = {
         this.evt();
     },
     evt: function(){
-        this.draw(this.tgap);
+        this.area();
         this.weather();
+        this.draw(this.tgap);
         setInterval( e => this.draw(this.tgap), 1000);
     },
     weather:function(){ /* 날씨(아이콘,온도) */
@@ -64,7 +65,8 @@ const clock = {
             });
         };
 
-        document.querySelectorAll(".btn:not(.my)").forEach( bt => bt.addEventListener("click", e => setCity(bt.value,bt.getAttribute("data-tm") )));
+        const btns = document.querySelectorAll(".btn:not(.my)");
+        btns.forEach( bt => bt.addEventListener("click", e => setCity(bt.value,bt.getAttribute("data-tm") )));
 
     },
     tgap:0,
@@ -101,7 +103,7 @@ const clock = {
             yy: date.getFullYear(),
             mo: date.getMonth()+1,
             dy: date.getDate(),
-            wk: date.getDay(),
+            wk: date.getDay()-1,
             hh: date.getHours() > 12 ? date.getHours() - 12 : date.getHours(),
             mm: date.getMinutes(),
             ss: date.getSeconds(),
@@ -127,33 +129,25 @@ const clock = {
         dots.ss.style.transform = 'rotate('+ tday.ss * 360 / 60 +'deg)';
     },
     area: function(){
-        
-        // anotherCityTime('서울',0,'seoul'); //나라별 설정 '텍스트','기준시간GMT','ID 비교값'
-        // anotherCityTime('도쿄',0,'tokyo');
-        // anotherCityTime('방콕',-2,'bangkok');
-        // anotherCityTime('싱가폴',-1,'singapore');
-        // anotherCityTime('모스크바',-5,'moskba'); 
-        // anotherCityTime('파리',-7,'pari'); 
-        // anotherCityTime('런던',-9,'london');
-        // anotherCityTime('시드니',1,'sydney');
-        // anotherCityTime('몰디브',-3.5,'maldives');
-        // anotherCityTime('칸쿤',-14,'kankun');
-        // anotherCityTime('뉴욕',-13,'newyork');
-        // anotherCityTime('밴쿠버',-16,'vancouver');
-        // anotherCityTime('하와이',-19,'hawai');
-
         const area = {
             "Seoul":    { name: "Seoul",     gap: 0 },
             "Jeju":     { name: "Jeju",      gap: 0 },
-            "Tokyo":    { name: "Tokyo",     gap: 0 },
             "Bangkok":  { name: "Bangkok",   gap: -2 },
-            "Hawaii":   { name: "Hawaii",    gap: -19 },
-            "London":   { name: "London",    gap: -8 },
-            "Maldives": { name: "Maldives",  gap: -3.5 },
             "Paris":    { name: "Paris",     gap: -7 },
-            "Sydney":   { name: "Sydney",    gap: 1 },
+            "Hawaii":   { name: "Hawaii",    gap: -19 },
+            "Maldives": { name: "Maldives",  gap: -3.5 },
+            "Sydney":   { name: "Sydney",    gap: +1 },
             "Moskva":   { name: "Moskva",    gap: -6 },
+            "Seattle":  { name: "Seattle",   gap: -16 },
         };
+        const selt = document.querySelector(".selt");
+        let btns = "";
+        console.table(area);
+        for(const key in area ){
+            const bt = '<button class="btn" value="'+area[key].name+'" data-tm="'+area[key].gap+'">'+area[key].name+'</button>';
+            btns +=  bt;
+        }
+        selt.innerHTML = btns;
     }
 };
 
