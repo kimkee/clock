@@ -19,4 +19,4 @@ dotmm.style.transform = 'rotate('+ m * 360 / 60 +'deg)';
 dotss.style.transform = 'rotate('+ s * 360 / 60 +'deg)';
 ```
 
-<img src="./screenshot.png" width="320">
+<img src="./screenshot.png" width="350">

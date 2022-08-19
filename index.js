@@ -8,7 +8,7 @@ const clock = {
         this.draw(this.tgap);
         setInterval( e => this.draw(this.tgap), 1000);
 
-        const xyr = 36;
+        const xyr = 36; /* 그래프 반지름 */
         document.querySelectorAll(".circle circle").forEach(
             circ => {
                 circ.setAttribute("cx", xyr);
@@ -71,8 +71,8 @@ const clock = {
                 const temp = (Math.floor(data.main.temp * 10) / 10).toFixed(1) +'ºC'; /* 소수점 첫째자리만 */
                 const icon = (data.weather[0].icon).substr(0,2);
                 tits.innerHTML = '<i class="' + icons[icon] +'"></i> <b>' + city + ' '+ temp + '</b>';
-                console.log( data, icon , temp , city ,Number(gap));
-                clock.tgap = Number(gap);
+                console.log( data, icon , temp , city ,gap);
+                clock.tgap = gap;
                 _this.draw( clock.tgap );
             });
         };
@@ -82,7 +82,7 @@ const clock = {
 
     },
     tgap:0,
-    draw: function(tgap){ /* 시계 렌더링 */
+    draw: function(gap){ /* 시계 렌더링 */
         const time = { /* 시,분,초 */
             yymd: document.querySelector(".date"),
             hour: document.querySelector(".circle.hh .nm"),
@@ -109,7 +109,7 @@ const clock = {
         const dgt = n => n < 10 ? "0" + n : n; /* "01","02" 두자리 수로 만들기 */
 
         const dorg = new Date();
-        const date = new Date(Date.parse(dorg) + (1000*60*60* tgap));
+        const date = new Date( Date.parse(dorg) + (1000*60*60* gap) );
         const tday = {
             yy: date.getFullYear(),
             mo: date.getMonth()+1,
@@ -139,7 +139,7 @@ const clock = {
         dots.mm.style.transform = 'rotate('+ tday.mm * 360 / 60 +'deg)';
         dots.ss.style.transform = 'rotate('+ tday.ss * 360 / 60 +'deg)';
         
-        setTimeout(() => document.querySelector(".time").classList.add("load"));
+        setTimeout( e => document.querySelector(".time").classList.add("load") );
     },
     area: function(){ /* 도시 선택 */
         const area = {
