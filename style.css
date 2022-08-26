@@ -9,7 +9,9 @@ body{background-color: #2a2f37;touch-action: pan-y;color: #666666;display: flex;
 .clocksvg .box{}
 .clocksvg .tit{font-weight: 700;margin: 0rem 0 10rem 0;position: relative;color: aliceblue;min-height: 43rem;display: flex;flex-wrap: wrap;align-items: center;width: 100%;justify-content: center;}
 .clocksvg .tit i{font-size: 32rem;display: block;margin: 4rem 10rem 0rem 0rem;background: linear-gradient(180deg,#ffffff 12.41%,#939393 52.55%,#ffffff 89.95%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;}
-.clocksvg .tit b{font-size: 21rem; text-align: center;background: linear-gradient(180deg,#ffffff 12.41%,#939393 52.55%,#ffffff 89.95%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;}
+.clocksvg .tit em{font-size: 28rem;font-style: normal;text-align: center;background: linear-gradient(180deg,#ffffff 12.41%,#939393 52.55%,#ffffff 89.95%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;}
+.clocksvg .tit b{font-size: 24rem;text-align: center;margin-left: 6rem;background: linear-gradient(180deg,#ffffff 12.41%,#939393 52.55%,#ffffff 89.95%);/* background: #fdfdfd; */-webkit-background-clip: text;-webkit-text-fill-color: transparent;line-height: 1;margin-top: 3rem;}
+.clocksvg .tit b::after{content:"℃";font-size: 16rem;display: inline-flex;vertical-align: super;}
 .clocksvg .date{font-weight: 700;margin: 2rem 0 3rem 0;position: relative;color: #d5d5d5;display: flex;align-items: center;justify-content: center;background: linear-gradient(180deg,#ffffff 12.41%,#d1d1d1 52.55%,#959595 89.95%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;}
 .clocksvg .date b{font-size: 22rem;font-weight: 700; font-style: normal; line-height: 1;}
 .clocksvg .date i{font-size: 18rem;font-weight: 700; font-style: normal; line-height: 1; margin-left: 4rem;}

@@ -1,7 +1,10 @@
 const clock = {
+    /* 구동 */
     init: function(){
         this.evt();
     },
+
+    /* 이벤트 */
     evt: function(){
         this.area();
         this.weather();
@@ -20,7 +23,12 @@ const clock = {
             }
         );
     },
-    weather: function(){ /* 날씨(아이콘,온도) */
+    
+    /* 시차 */
+    tgap: 0,
+    
+    /* 날씨(아이콘,온도) */
+    weather: function(){
         const _this = this;
         const icons = {
             '01' : 'fas fa-sun',
@@ -68,21 +76,22 @@ const clock = {
             .then( data => {
                 test.innerHTML = myCity + " - " + test.innerHTML ;
                 const city = data.name;
-                const temp = (Math.floor(data.main.temp * 10) / 10).toFixed(1) +'ºC'; /* 소수점 첫째자리만 */
+                const temp = (Math.floor(data.main.temp * 10) / 10).toFixed(1); /* 소수점 첫째자리만 */
                 const icon = (data.weather[0].icon).substr(0,2);
-                tits.innerHTML = '<i class="' + icons[icon] +'"></i> <b>' + city + ' '+ temp + '</b>';
-                console.log( data, icon , temp , city ,gap);
-                clock.tgap = gap;
-                _this.draw( clock.tgap );
+                tits.innerHTML = '<i class="' + icons[icon] +'" title="'+data.weather[0].description+' - '+data.weather[0].icon+'"></i> <em>' + city + '</em> <b>'+ temp + '</b>';
+                console.log( data, icon , temp , city , data.weather[0].description , data.weather[0].icon ,gap);
+                _this.tgap = gap;
+                _this.draw( _this.tgap );
             });
         };
 
         const bts = document.querySelectorAll(".btn:not(.my)");
-        bts.forEach( bt => bt.addEventListener("click", e => setCity(bt.value, bt.getAttribute("data-tm") )));
+        bts.forEach( bt => bt.addEventListener("click", e => setCity(bt.value, Number(bt.getAttribute("data-tm")) )));
 
     },
-    tgap:0,
-    draw: function(gap){ /* 시계 렌더링 */
+
+    /* 시계 렌더링 */
+    draw: function(gap){
         const time = { /* 시,분,초 */
             yymd: document.querySelector(".date"),
             hour: document.querySelector(".circle.hh .nm"),
@@ -141,7 +150,9 @@ const clock = {
         
         setTimeout( e => document.querySelector(".time").classList.add("load") );
     },
-    area: function(){ /* 도시 선택 */
+
+    /* 도시 선택 */
+    area: function(){
         const area = {
             seoul:    { name: "Seoul",     gap: 0    },
             jeju:     { name: "Jeju",      gap: 0    },
@@ -155,7 +166,6 @@ const clock = {
         };
         const selt = document.querySelector(".selt");
         let bts = "";
-        console.table(area);
         for(const key in area ){
             const bt = '<button class="btn" value="'+area[key].name+'" data-tm="'+area[key].gap+'">'+area[key].name+'</button>';
             bts +=  bt;
@@ -164,4 +174,4 @@ const clock = {
     }
 };
 
-document.addEventListener('DOMContentLoaded', e => clock.init() );
+document.addEventListener("DOMContentLoaded", e => clock.init() );
