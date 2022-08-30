@@ -174,4 +174,4 @@ const clock = {
     }
 };
 
-document.addEventListener("DOMContentLoaded", e => clock.init() );
+document.addEventListener("DOMContentLoaded", clock.init() );
