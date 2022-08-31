@@ -31,15 +31,15 @@ const clock = {
     weather: function(){
         const _this = this;
         const icons = {
-            '01' : 'fas fa-sun',
-            '02' : 'fas fa-cloud-sun',
-            '03' : 'fas fa-cloud',
-            '04' : 'fas fa-cloud-meatball',
-            '09' : 'fas fa-cloud-sun-rain',
-            '10' : 'fas fa-cloud-showers-heavy',
-            '11' : 'fas fa-poo-storm',
-            '13' : 'far fa-snowflake',
-            '50' : 'fas fa-smog'
+            "01" : "fas fa-sun",
+            "02" : "fas fa-cloud-sun",
+            "03" : "fas fa-cloud",
+            "04" : "fas fa-cloud-meatball",
+            "09" : "fas fa-cloud-sun-rain",
+            "10" : "fas fa-cloud-showers-heavy",
+            "11" : "fas fa-poo-storm",
+            "13" : "far fa-snowflake",
+            "50" : "fas fa-smog",
         };
         const tits = document.querySelector(".tit");
         const test = document.querySelector(".test");
@@ -112,7 +112,7 @@ const clock = {
         const week = { /* 요일 */
             ch: ["日","月","火","水","木","金","土"],
             en: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
-            ko: ["일","월","화","수","목","금","토"]
+            ko: ["일","월","화","수","목","금","토"],
         };
 
         const dgt = n => n < 10 ? "0" + n : n; /* "01","02" 두자리 수로 만들기 */
@@ -144,30 +144,30 @@ const clock = {
         circ.mm.style.strokeDashoffset = round - (round * tday.mm) / 60;
         circ.ss.style.strokeDashoffset = round - (round * tday.ss) / 60;
 
-        dots.hh.style.transform = 'rotate('+ tday.hh * 360 / 12 +'deg)';
-        dots.mm.style.transform = 'rotate('+ tday.mm * 360 / 60 +'deg)';
-        dots.ss.style.transform = 'rotate('+ tday.ss * 360 / 60 +'deg)';
+        dots.hh.style.transform = "rotate("+ tday.hh * 360 / 12 +"deg)";
+        dots.mm.style.transform = "rotate("+ tday.mm * 360 / 60 +"deg)";
+        dots.ss.style.transform = "rotate("+ tday.ss * 360 / 60 +"deg)";
         
-        setTimeout( e => document.querySelector(".time").classList.add("load") );
+        setTimeout( document.querySelector(".time").classList.add("load") );
     },
 
     /* 도시 선택 */
     area: function(){
         const area = {
-            seoul:    { name: "Seoul",     gap: 0    },
-            jeju:     { name: "Jeju",      gap: 0    },
-            bangkok:  { name: "Bangkok",   gap: -2   },
-            paris:    { name: "Paris",     gap: -7   },
-            hawaii:   { name: "Hawaii",    gap: -19  },
-            maldives: { name: "Maldives",  gap: -3.5 },
-            sydney:   { name: "Sydney",    gap: +1   },
-            moskva:   { name: "Moskva",    gap: -6   },
-            seattle:  { name: "Seattle",   gap: -16  },
+            seoul:    { name: "Seoul",     gap: "0"    },
+            jeju:     { name: "Jeju",      gap: "0"    },
+            bangkok:  { name: "Bangkok",   gap: "-2"   },
+            paris:    { name: "Paris",     gap: "-7"   },
+            hawaii:   { name: "Hawaii",    gap: "-19"  },
+            maldives: { name: "Maldives",  gap: "-3.5" },
+            sydney:   { name: "Sydney",    gap: "+1"   },
+            moskva:   { name: "Moskva",    gap: "-6"   },
+            seattle:  { name: "Seattle",   gap: "-16"  },
         };
         const selt = document.querySelector(".selt");
         let bts = "";
-        for(const key in area ){
-            const bt = '<button class="btn" value="'+area[key].name+'" data-tm="'+area[key].gap+'">'+area[key].name+'</button>';
+        for(let key in area ){
+            let bt = '<button class="btn" value="'+area[key].name+'" data-tm="'+area[key].gap+'">'+area[key].name+'</button>';
             bts +=  bt;
         }
         selt.innerHTML = bts;
